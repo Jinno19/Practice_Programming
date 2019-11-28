@@ -32,23 +32,24 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			if(ci<0) {
 				return new LexicalUnit(LexicalType.EOF);
 			}
+			unget(ci);
 
 			char c=(char)ci;
 			if((c>='a' && c<='z')||(c>='A' && c<='Z')) {
 				return getString();
 			}
 
-			int i=(int)ci;
-			if(i>='0' && i<='9') {
+			int c1=(char)ci;
+			if(c1>='0' && c1<='9') {
 				return getInt();
 			}
 			
-			char c1=(char)ci;
-			if(c1=='"') {
+			char c2=(char)ci;
+			if(c2=='"') {
 				return getLiteral();
 			}
 			
-			
+			//記号認識が足りてない
 			
 		}
 
@@ -83,7 +84,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 	}
 
-	private LexicalUnit getString() throws Exception {
+	private LexicalUnit getString() throws Exception { //
 		String target="";
 
 		while(true) {
