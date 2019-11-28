@@ -1,5 +1,6 @@
 package newlang3;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +19,10 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	}
 
 
-	public LexicalAnalyzerImpl(String fname) {
+	public LexicalAnalyzerImpl(String fname) throws FileNotFoundException { //動作が何も書いてない！
+		InputStream in = new FileInputStream(fname);
+		Reader ir=new InputStreamReader(in);
+		reader=new PushbackReader(ir);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 

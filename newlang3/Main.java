@@ -1,8 +1,10 @@
 package newlang3;
 
+import java.io.FileNotFoundException;
+
 public class Main {
 
-		public static void main(String[] args) {
+		public static void main(String[] args) throws FileNotFoundException {
 		
 		String fname="test.bas";
 		
