@@ -99,6 +99,8 @@ public class LexicalUnit {
 	    	return ("NE");
 	    case ENDIF:
 	    	return ("ENDIF");
+	    case FUNC:
+	    	return ("FUNC");
 	    }
 	    return "";
 	}

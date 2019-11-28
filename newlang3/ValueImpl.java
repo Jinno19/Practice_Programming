@@ -4,6 +4,11 @@ public class ValueImpl extends Value{
 
 
 
+	public ValueImpl(String s, ValueType t) {
+		super(s, t);
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
 	@Override
 	public String get_sValue() {
 		// TODO 自動生成されたメソッド・スタブ
