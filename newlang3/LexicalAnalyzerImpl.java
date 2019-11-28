@@ -30,9 +30,9 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 		while(true) {
 			int ci=reader.read();
 			if(ci<0) {
-				return new LexicalUnit(LexicalType.EOF);
+			return new LexicalUnit(LexicalType.EOF);
 			}
-			unget(ci);
+			reader.unread(ci);
 
 			char c=(char)ci;
 			if((c>='a' && c<='z')||(c>='A' && c<='Z')) {
@@ -49,27 +49,20 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 				return getLiteral();
 			}
 			
-			//記号認識が足りてない
-			
+			return specialGet();
+			//それ以外を返す
 		}
-
-		return specialGet;
-		//それ以外を返す
 	}
 
 
 
 
-	private LexicalUnit getLiteral() {
+	private LexicalUnit specialGet() {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 
 
-	private LexicalUnit getInt() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
 
 
 	@Override
@@ -90,7 +83,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 		while(true) {
 			int ci=reader.read();
 			if(ci<0) break;
-			char c=(char) ci;
+			char c=(char)ci;
 			if((c>='a'&&c<='z') || (c>='A' && c<='Z')){
 				target+=c;
 				continue;
@@ -98,6 +91,42 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			reader.unread(ci);
 			break;
 		}
+		return new LexicalUnit(LexicalType.NAME,
+				new ValueImpl(target,ValueType.STRING));
+	}
+		
+		private LexicalUnit getInt() throws Exception { //
+			String target="";
+
+			while(true) {
+				int ci=reader.read();
+				if(ci<0) break;
+				int c1=(char)ci;
+				if(c1>='0' && c1<='9') {
+					target+=c1;
+					continue;
+				}
+				reader.unread(ci);
+				break;
+			}
+		return new LexicalUnit(LexicalType.NAME,
+				new ValueImpl(target,ValueType.STRING));
+	}
+		
+		private LexicalUnit getLiteral() throws Exception { //
+			String target="";
+
+			while(true) {
+				int ci=reader.read();
+				if(ci<0) break;
+				char c2=(char)ci;
+				if(c2=='"') {
+					target+=c2;
+					continue;
+				}
+				reader.unread(ci);
+				break;
+			}
 		return new LexicalUnit(LexicalType.NAME,
 				new ValueImpl(target,ValueType.STRING));
 	}
