@@ -4,26 +4,30 @@ import java.io.FileNotFoundException;
 
 public class Main {
 
-		public static void main(String[] args) throws FileNotFoundException {
-		
+		public static void main(String[] args) {
 		String fname="test.bas";
+		if(args.length>0)fname = args[0];
 		
-		LexicalUnit lexunit=null;
-		
-		LexicalAnalyzer analyzedContent=new LexicalAnalyzerImpl(fname);
-		
-		while(true){
+				
+		LexicalAnalyzer la = null;
 		try {
-			lexunit=analyzedContent.get();
-		} catch (Exception e) {
+			la = new LexicalAnalyzerImpl(fname);
+		} catch (FileNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		System.out.println(lexunit);
-		if(lexunit.getType() == LexicalType.EOF){
-			break;
+		
+		while(true){
+			LexicalUnit lu = null;
+			try {
+				lu = la.get();
+			} catch (Exception e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+		if(lu.getType() == LexicalType.EOF) break;
+			System.out.println(lu);
 		}
 		
-		}
 		}
 }
