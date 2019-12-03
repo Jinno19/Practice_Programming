@@ -25,6 +25,7 @@ public class Main {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
+			
 		if(lu.getType() == LexicalType.EOF) break;
 			System.out.println(lu);
 		}
