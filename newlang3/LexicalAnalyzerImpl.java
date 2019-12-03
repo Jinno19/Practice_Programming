@@ -8,6 +8,8 @@ import java.io.PushbackReader;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 
 public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
@@ -80,6 +82,12 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			}
 			reader.unread(ci);
 			
+			String str2=String.valueOf((char) ci);
+			boolean b = Pattern.matches("[\\s]", str2);
+			if(b==true) {
+			reader.skip(ci);
+			}
+			
 
 			char c=(char) ci;
 			if((c>='a' && c<='z')||(c>='A' && c<='Z')) {
@@ -89,6 +97,8 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			int c1=(char)ci;
 			if(c1>='0' && c1<='9') {
 				return getNumber();
+			}else if(c1<0){
+			return new LexicalUnit(LexicalType.EOF);
 			}
 
 			char c2=(char) ci;
@@ -107,7 +117,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			}
 		}
 	}
-
+	
 	
 
 	private LexicalUnit getString() throws Exception { //
@@ -120,7 +130,9 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 				target+=c;
 				continue;
 			}
+			reader.unread(ci);
 			break;
+
 		}
 		if(resword.containsKey(target)) {
 			return new LexicalUnit(LexicalType.valueOf(target));
@@ -140,6 +152,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 					target+=c1;
 					continue;
 				}
+				reader.unread(ci);
 				break;
 			}
 		return new LexicalUnit(LexicalType.INTVAL,
@@ -157,6 +170,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 					target+=c2;
 					continue;
 				}
+				reader.unread(ci);
 				break;
 			}
 		return new LexicalUnit(LexicalType.NAME,
@@ -179,6 +193,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 				target+=str;
 				continue;
 			}
+			reader.unread(ci);
 			break;
 		}
 			if(ope.containsKey(target)) {
