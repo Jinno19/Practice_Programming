@@ -1,20 +1,21 @@
 package newlang3;
 
 public abstract class Value {
-// À‘•‚·‚×‚«ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×‚ï¿½ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     public Value(String s) {};
     public Value(int i) {};
     public Value(double d) {};
     public Value(boolean b) {};
     public Value(String s, ValueType t) {};
+    public Value(int i, ValueType t) {};
     public abstract String get_sValue();
 	public abstract String getSValue();
-	// ƒXƒgƒŠƒ“ƒOŒ^‚Å’l‚ğæ‚èo‚·B•K—v‚ª‚ ‚ê‚ÎAŒ^•ÏŠ·‚ğs‚¤B
+	// ï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½^ï¿½Å’lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Bï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎAï¿½^ï¿½ÏŠï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½B
     public abstract int getIValue();
-    	// ®”Œ^‚Å’l‚ğæ‚èo‚·B•K—v‚ª‚ ‚ê‚ÎAŒ^•ÏŠ·‚ğs‚¤B
+    	// ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½Å’lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Bï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎAï¿½^ï¿½ÏŠï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½B
     public abstract double getDValue();
-    	// ¬”“_Œ^‚Å’l‚ğæ‚èo‚·B•K—v‚ª‚ ‚ê‚ÎAŒ^•ÏŠ·‚ğs‚¤B
+    	// ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½^ï¿½Å’lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Bï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎAï¿½^ï¿½ÏŠï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½B
     public abstract boolean getBValue();
-    	// ˜_—Œ^‚Å’l‚ğæ‚èo‚·B•K—v‚ª‚ ‚ê‚ÎAŒ^•ÏŠ·‚ğs‚¤B
+    	// ï¿½_ï¿½ï¿½ï¿½^ï¿½Å’lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Bï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎAï¿½^ï¿½ÏŠï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½B
     public abstract ValueType getType();
 }

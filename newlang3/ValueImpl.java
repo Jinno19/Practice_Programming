@@ -8,16 +8,18 @@ int it;
 
 	public ValueImpl(String s, ValueType t) {
 		super(s, t);
-		this.Sg=s;
-		this.Vt=t;
+		Sg=s;
+		Vt=t;
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	public ValueImpl(int i) {
-		super(i);
-		this.it=i;
+	public ValueImpl(int i, ValueType t) {
+		super(i,t);
+		it=i;
+		Vt=t;
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
+	
 	
 
 	@Override

@@ -8,7 +8,6 @@ public class Main {
 		String fname="test.bas";
 		if(args.length>0)fname = args[0];
 		
-				
 		LexicalAnalyzer la = null;
 		try {
 			la = new LexicalAnalyzerImpl(fname);
@@ -25,9 +24,9 @@ public class Main {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
-			
-		if(lu.getType() == LexicalType.EOF) break;
+
 			System.out.println(lu);
+			if(lu.getType() == LexicalType.EOF) break;
 		}
 		
 		}

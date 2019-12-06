@@ -15,11 +15,10 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 	PushbackReader reader;
 
-
-
 	    Map<String, LexicalUnit> resword = new HashMap<String, LexicalUnit>();
 	    Map<String, LexicalUnit> ope =new HashMap<String,LexicalUnit>();
-	      {
+	    Map<String, LexicalUnit> newline =new HashMap<String,LexicalUnit>();
+	    {
 	    	  {
 	        resword.put("IF", new LexicalUnit(LexicalType.IF));
 	        resword.put("THEN", new LexicalUnit(LexicalType.THEN));
@@ -30,10 +29,9 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	        resword.put("DIM",new LexicalUnit(LexicalType.DIM));
 	        resword.put("AS",new LexicalUnit(LexicalType.AS));
 	        resword.put("END",new LexicalUnit(LexicalType.END));
-	        resword.put("EOF",new LexicalUnit(LexicalType.EOF));
-	        ope.put("\\n",new LexicalUnit(LexicalType.NL));
-	        ope.put("\\r",new LexicalUnit(LexicalType.NL));
-	        ope.put("\\r\\n'",new LexicalUnit(LexicalType.NL));
+	        newline.put("\n",new LexicalUnit(LexicalType.NL));
+	        newline.put("\r",new LexicalUnit(LexicalType.NL));
+	        newline.put("\r\n",new LexicalUnit(LexicalType.NL));
 	        ope.put("=",new LexicalUnit(LexicalType.EQ));
 	        ope.put("<",new LexicalUnit(LexicalType.LT));
 	        ope.put(">",new LexicalUnit(LexicalType.GT));
@@ -60,71 +58,94 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	    	  }
 	      }
 
-
-
-
 	public LexicalAnalyzerImpl(String fname) throws FileNotFoundException { //動作が何も書いてない！
 		InputStream in = new FileInputStream(fname);
 		Reader ir=new InputStreamReader(in);
 		reader=new PushbackReader(ir);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 
 	@Override
 	public LexicalUnit get() throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
+		int ci;
 
 		while(true) {
-			int ci=reader.read();
-			if(ci<0) {
-			return new LexicalUnit(LexicalType.EOF);
-			}
+			ci=reader.read();
+
 			reader.unread(ci);
 			
 			String str2=String.valueOf((char) ci);
-			boolean b = Pattern.matches("[\\s]", str2);
+			boolean b = Pattern.matches("\\ |\\t", str2);
 			if(b==true) {
-			reader.skip(ci);
+			reader.skip(1);
 			}
 			
-
 			char c=(char) ci;
 			if((c>='a' && c<='z')||(c>='A' && c<='Z')) {
 				return getString();
 			}
-
-			int c1=(char)ci;
+			
+			char c1=(char) ci;
 			if(c1>='0' && c1<='9') {
 				return getNumber();
-			}else if(c1<0){
-			return new LexicalUnit(LexicalType.EOF);
 			}
-
+			
 			char c2=(char) ci;
 			if(c2=='"') {
 				return getLiteral();
 			}
 			
-
 			char c3=(char)ci;
 			String str=String.valueOf(c3);
 			if(str.equals("+")||(str.equals("-"))||(str.equals("*"))||(str.equals("/"))
 					||(str.equals(","))||(str.equals("."))||(str.equals("="))||(str.equals("<"))
-					||(str.equals(">"))||(str.equals("\\n"))||(str.equals("\\r"))||(str.equals("("))
-					||(str.equals(")"))) {
+					||(str.equals(">"))||(str.equals("("))||(str.equals(")"))) {
 			return getSpecial();
 			}
+			
+			char c4=(char) ci;
+			String str3=String.valueOf(c4);
+			if(newline.containsKey(str3)) {
+				return getNL();
+			}
+			
+			if(ci==-1) {
+			return getEOF();
+			}
+			continue;
 		}
 	}
+
+	private LexicalUnit getEOF() {
+		return new LexicalUnit(LexicalType.EOF);
+	}
+
+
+	private LexicalUnit getNL() throws Exception{
+		String target = null;
+		String str;
+		
+			while(true) {
+			int ci=reader.read();
+			char c4=(char)ci;
+			str=String.valueOf(c4);
+			if(newline.containsKey(str)) {
+				target+=str;
+				continue;
+			}
+			reader.unread(ci);
+			break;
+			}
+			
+			return new LexicalUnit(LexicalType.NL);
+	}
 	
-	
+
 
 	private LexicalUnit getString() throws Exception { //
 		String target="";
 		while(true) {
 			int ci=reader.read();
-			if(ci<0) break;
 			char c=(char)ci;
 			if((c>='a'&&c<='z') || (c>='A' && c<='Z')){
 				target+=c;
@@ -146,49 +167,49 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 			while(true) {
 				int ci=reader.read();
-				if(ci<0) break;
-				int c1=(char)ci;
-				if(c1>='0' && c1<='9') {
-					target+=c1;
+				String st=String.valueOf((char)ci);
+				if(ci>='0' && ci<='9') {
+					target+=st;
 					continue;
 				}
 				reader.unread(ci);
 				break;
 			}
 		return new LexicalUnit(LexicalType.INTVAL,
-				new ValueImpl(target,ValueType.INTEGER));
+				new ValueImpl(Integer.parseInt(target),ValueType.INTEGER));
 	}
 
 		private LexicalUnit getLiteral() throws Exception { //
 			String target="";
+			String str;
 
 			while(true) {
 				int ci=reader.read();
-				if(ci<0) break;
 				char c2=(char)ci;
-				if(c2=='"') {
-					target+=c2;
-					continue;
-				}
-				reader.unread(ci);
-				break;
+					str=String.valueOf(c2);
+					target+=str;
+					
+			boolean b = Pattern.matches("^\".*\"$",target);
+			if(b==true) {
+			target=target.substring(1,target.length()-1);
+			return new LexicalUnit(LexicalType.LITERAL,
+					new ValueImpl(target,ValueType.STRING));
 			}
-		return new LexicalUnit(LexicalType.NAME,
-				new ValueImpl(target,ValueType.STRING));
-	}
 
+			}
+		}
 
 	private LexicalUnit getSpecial() throws Exception{
 		String target="";
+		String str;
 
 		while(true) {
 			int ci=reader.read();
-			if(ci<0) break;
 			char c3=(char)ci;
-			String str=String.valueOf(c3);
+			str=String.valueOf(c3);
 			if(str.equals("+")||(str.equals("-"))||(str.equals("*"))||(str.equals("/"))
 					||(str.equals(","))||(str.equals("."))||(str.equals("="))||(str.equals("<"))
-					||(str.equals(">"))||(str.equals("\\n"))||(str.equals("\\r"))||(str.equals("("))
+					||(str.equals(">"))||(str.equals("("))
 					||(str.equals(")"))) {
 				target+=str;
 				continue;
@@ -196,28 +217,22 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			reader.unread(ci);
 			break;
 		}
+		
 			if(ope.containsKey(target)) {
-				return new LexicalUnit(LexicalType.valueOf(target));
-			}
+				str=String.valueOf(ope.get(target));
+				return new LexicalUnit(LexicalType.valueOf(str));
+			}else {
 			return null;
 		}
-
-
-
-
+	}
 
 	@Override
 	public boolean expect(LexicalType type) throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
 		return false;
 	}
 
 	@Override
 	public void unget(LexicalUnit token) throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
-
 	}
-
-
 }
 
