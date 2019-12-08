@@ -106,38 +106,15 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			char c4=(char) ci;
 			String str3=String.valueOf(c4);
 			if(newline.containsKey(str3)) {
-				return getNL();
-			}
+				return new LexicalUnit(LexicalType.NL);
+			}reader.unread(ci);
+			
 			
 			if(ci==-1) {
-			return getEOF();
+				return new LexicalUnit(LexicalType.EOF);
 			}
 			continue;
 		}
-	}
-
-	private LexicalUnit getEOF() {
-		return new LexicalUnit(LexicalType.EOF);
-	}
-
-
-	private LexicalUnit getNL() throws Exception{
-		String target = null;
-		String str;
-		
-			while(true) {
-			int ci=reader.read();
-			char c4=(char)ci;
-			str=String.valueOf(c4);
-			if(newline.containsKey(str)) {
-				target+=str;
-				continue;
-			}
-			reader.unread(ci);
-			break;
-			}
-			
-			return new LexicalUnit(LexicalType.NL);
 	}
 	
 
