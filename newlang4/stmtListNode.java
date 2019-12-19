@@ -40,8 +40,8 @@ public class stmtListNode extends Node {
 		LexicalUnit first=env.getInput().get();
 
 		while(true){
-			if(stmtListNode.isFirst(first)) {
-				stmt=stmtListNode.getHandler(first,env);
+			if(stmtNode.isFirst(first)) {
+				stmt=stmtNode.getHandler(first,env);
 				return stmt.parse();
 			}else {
 				return false;
