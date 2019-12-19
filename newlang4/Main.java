@@ -1,6 +1,6 @@
 package newlang4;
 
-import newlang3.LexicalAnalyzerImpl;
+import java.io.FileInputStream;
 
 public class Main {
 
@@ -8,13 +8,15 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
+			FileInputStream fin = null;
 	        LexicalAnalyzer lex;
 	        LexicalUnit		first;
 	        Environment		env;
 	        Node			program;
 	  
 	        System.out.println("basic parser");
-	        lex = new LexicalAnalyzerImpl("END.bas");
+	        fin = new FileInputStream("end.bas");
+	        lex = new LexicalAnalyzerImpl(fin);
 	        env = new Environment(lex);
 	        first = lex.get();
 	        lex.unget(first);
