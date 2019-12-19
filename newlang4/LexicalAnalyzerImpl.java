@@ -20,6 +20,8 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	    Map<String, LexicalUnit> resword = new HashMap<String, LexicalUnit>();
 	    Map<String, LexicalUnit> ope =new HashMap<String,LexicalUnit>();
 	    Map<String, LexicalUnit> newline =new HashMap<String,LexicalUnit>();
+	    
+		Deque<LexicalUnit> luDeque=new ArrayDeque<>();
 	    {
 	    	  {
 	        resword.put("IF", new LexicalUnit(LexicalType.IF));
@@ -72,6 +74,11 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 		int ci;
 
 		while(true) {
+			
+			if(luDeque!=null) {
+			return luDeque.pop();
+			}
+			
 			ci=reader.read();
 
 			reader.unread(ci);
@@ -228,6 +235,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			return null;
 		}
 	}
+	
 
 	@Override
 	public boolean expect(LexicalType type) throws Exception {
@@ -236,7 +244,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 	@Override
 	public void unget(LexicalUnit token) throws Exception {
-		Deque<LexicalUnit> luDeque=new ArrayDeque<>();
+
 		luDeque.push(token);
 		
 	}
