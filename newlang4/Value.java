@@ -16,4 +16,5 @@ public interface Value {
     public boolean getBValue();
     	// �_���^�Œl�����o���B�K�v������΁A�^�ϊ����s���B
     public ValueType getType();
+	public String get_sValue();
 }

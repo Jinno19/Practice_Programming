@@ -4,6 +4,8 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class Program extends Node{
+	Node stmt_list;
+	Environment env;
 	
 	static final Set<LexicalType> firstSet=EnumSet.of(
 			LexicalType.NAME,
@@ -20,7 +22,11 @@ public class Program extends Node{
 
 	public static Node getHandler(LexicalUnit lu, Environment env) {
 
-		return new StmtList();
+		return new Program(lu,env);
+	}
+	
+	private Program(LexicalUnit first,Environment env) {
+		this.env=env;
 	}
 	
 	
@@ -30,16 +36,19 @@ public class Program extends Node{
 		LexicalUnit first=env.getInput().get();
 		
 		while(true){
-		if(Stmt.isFirst(first)) {
-			Node handler=Stmt.getHandler(first,env);
-			handler.parse();
-		}else if(Block.isFirst(first)) {
-			Node handler=Block.getHandler(first,env);
-			handler.parse();
+		if(StmtList.isFirst(first)) {
+			stmt_list=StmtList.getHandler(first,env);
+					return stmt_list.parse();
 		}else {
-			break;
+			return false;
 		}
 		}
-	}//LexicalAnalyzerImplを拡張し、ungetを用意しなければならない
-	}//handlerを何処かにとっておく？
+		}
+		public String toString() {
+			return stmt_list.toString();
+		}
+	}
+	//LexicalAnalyzerImplを拡張し、ungetを用意しなければならない
+//handlerを何処かにとっておく？
 //toString()を拡張して、構文木を印刷する？
+//getとungetを１つのメソッドにしておく

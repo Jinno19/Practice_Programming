@@ -14,9 +14,10 @@ public class Main {
 	        Node			program;
 	  
 	        System.out.println("basic parser");
-	        lex = new LexicalAnalyzerImpl("test.bas");
+	        lex = new LexicalAnalyzerImpl("END.bas");
 	        env = new Environment(lex);
 	        first = lex.get();
+	        lex.unget(first);
 	        
 	        if (Program.isFirst(first)) {
 	        	Node handler = Program.getHandler(first, env);
@@ -27,3 +28,5 @@ public class Main {
 	}
 
 }
+
+//19~24行目を使い回すらしい

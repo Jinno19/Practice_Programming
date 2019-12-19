@@ -1,20 +1,20 @@
 package newlang4;
 
-public class ValueImpl extends Value{
+public class ValueImpl implements Value{
 
 String Sg;
 ValueType Vt;
 int it;
 
 	public ValueImpl(String s, ValueType t) {
-		super(s, t);
+		super();
 		Sg=s;
 		Vt=t;
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public ValueImpl(int i, ValueType t) {
-		super(i,t);
+		super();
 		it=i;
 		Vt=t;
 		// TODO 自動生成されたコンストラクター・スタブ
