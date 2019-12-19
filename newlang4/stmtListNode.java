@@ -1,6 +1,8 @@
 package newlang4;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 public class stmtListNode extends Node {
@@ -15,6 +17,9 @@ public class stmtListNode extends Node {
 			LexicalType.IF,
 			LexicalType.DO
 			);
+	
+	
+	private List<Node> stmts=new ArrayList<Node>();
 
 
 	public static boolean isFirst(LexicalUnit first) {
@@ -42,13 +47,15 @@ public class stmtListNode extends Node {
 		while(true){
 			if(stmtNode.isFirst(first)) {
 				stmt=stmtNode.getHandler(first,env);
+				stmts.add(stmt);
 				return stmt.parse();
 			}else {
 				return false;
 			}
 		}
 	}
-	public String toString() {
+	public String toString()  {
+
 		return stmt.toString();
 	}
 }
