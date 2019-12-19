@@ -75,7 +75,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 		while(true) {
 			
-			if(luDeque!=null) {
+			if(luDeque.getFirst()!=null) {
 			return luDeque.pop();
 			}
 			
