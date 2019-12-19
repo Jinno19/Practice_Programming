@@ -36,8 +36,8 @@ public class Program extends Node{
 		LexicalUnit first=env.getInput().get();
 		
 		while(true){
-		if(StmtList.isFirst(first)) {
-			stmt_list=StmtList.getHandler(first,env);
+		if(stmtListNode.isFirst(first)) {
+			stmt_list=stmtListNode.getHandler(first,env);
 					return stmt_list.parse();
 		}else {
 			return false;
