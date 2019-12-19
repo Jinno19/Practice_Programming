@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PushbackReader;
 import java.io.Reader;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -234,6 +236,9 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 	@Override
 	public void unget(LexicalUnit token) throws Exception {
+		Deque<LexicalUnit> luDeque=new ArrayDeque<>();
+		luDeque.push(token);
+		
 	}
 }
 

@@ -40,15 +40,15 @@ public class stmtListNode extends Node {
 		LexicalUnit first=env.getInput().get();
 
 		while(true){
-		if(stmtListNode.isFirst(first)) {
-			stmt=stmtListNode.getHandler(first,env);
-					return stmt.parse();
-		}else {
-			return false;
-		}
-		}
-		}
-		public String toString() {
-			return stmt.toString();
+			if(stmtListNode.isFirst(first)) {
+				stmt=stmtListNode.getHandler(first,env);
+				return stmt.parse();
+			}else {
+				return false;
+			}
 		}
 	}
+	public String toString() {
+		return stmt.toString();
+	}
+}
