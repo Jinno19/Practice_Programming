@@ -46,6 +46,7 @@ public class stmtListNode extends Node {
 
 		while(true){
 			if(stmtNode.isFirst(first)) {
+				stmtListNode.unget(first);
 				stmt=stmtNode.getHandler(first,env);
 				stmts.add(stmt);
 				return stmt.parse();
@@ -54,6 +55,11 @@ public class stmtListNode extends Node {
 			}
 		}
 	}
+	private static void unget(LexicalUnit first) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
 	public String toString()  {
 
 		return stmt.toString();
