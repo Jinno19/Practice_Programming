@@ -17,8 +17,8 @@ public class stmtListNode extends Node {
 			LexicalType.IF,
 			LexicalType.DO
 			);
-	
-	
+
+
 	private List<Node> stmts=new ArrayList<Node>();
 
 
@@ -57,7 +57,7 @@ public class stmtListNode extends Node {
 	}
 	private static void unget(LexicalUnit first) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+
 	}
 
 	public String toString()  {
