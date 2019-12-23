@@ -35,15 +35,14 @@ public class stmtNode extends Node {
 
 		LexicalUnit first=env.getInput().get();
 
-		while(true){
 			if(EndNode.isFirst(first)) {
 				End=EndNode.getHandler(first,env);
-				End.parse();
+				env.getInput().unget(first);
+				return End.parse();
 			}
 			env.getInput().unget(first);
 			return false;
 		}
-	}
 
 	@Override
 	public String toString()  {

@@ -46,6 +46,7 @@ public class stmtListNode extends Node {
 			if(stmtNode.isFirst(first)) {
 				stmt=stmtNode.getHandler(first,env);
 				stmts.add(stmt);
+				env.getInput().unget(first);
 				stmt.parse();
 				continue;
 			}
