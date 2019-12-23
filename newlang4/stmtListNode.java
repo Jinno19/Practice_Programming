@@ -44,11 +44,11 @@ public class stmtListNode extends Node {
 
 		while(true){
 			if(stmtNode.isFirst(first)) {
+				env.getInput().unget(first);
 				stmt=stmtNode.getHandler(first,env);
 				stmts.add(stmt);
-				env.getInput().unget(first);
 				stmt.parse();
-				continue;
+				//continue;
 			}
 			env.getInput().unget(first);
 			return false;
