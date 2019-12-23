@@ -41,8 +41,15 @@ public class stmtListNode extends Node {
 	public boolean parse() throws Exception{
 
 		LexicalUnit first=env.getInput().get();
+		
+
 
 		while(true){
+			if(first.getType()==LexicalType.NL) {
+				first=env.getInput().get();
+				continue;
+			}
+			
 			if(stmtNode.isFirst(first)) {
 				env.getInput().unget(first);
 				stmt=stmtNode.getHandler(first,env);
