@@ -48,10 +48,11 @@ public class stmtListNode extends Node {
 				stmt=stmtNode.getHandler(first,env);
 				stmts.add(stmt);
 				stmt.parse();
-				//continue;
-			}
+				}else {
 			env.getInput().unget(first);
 			return false;
+			}
+			return true;
 		}
 	}
 

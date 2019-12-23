@@ -36,12 +36,14 @@ public class stmtNode extends Node {
 		LexicalUnit first=env.getInput().get();
 
 			if(EndNode.isFirst(first)) {
-				End=EndNode.getHandler(first,env);
 				env.getInput().unget(first);
-				return End.parse();
-			}
+				End=EndNode.getHandler(first,env);
+				End.parse();
+			}else {
 			env.getInput().unget(first);
 			return false;
+			}
+			return true;
 		}
 
 	@Override
