@@ -20,7 +20,7 @@ public class Program extends Node{
 		return firstSet.contains(lu.getType());
 	}
 
-	public static Node getHandler(LexicalUnit lu, Environment env) {
+	public static Node getHandler(LexicalUnit lu, Environment env) throws Exception{
 
 		return new Program(lu,env);
 	}

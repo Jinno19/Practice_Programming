@@ -27,17 +27,15 @@ public class stmtListNode extends Node {
 		return firstSet.contains(first.getType());
 	}
 
-	public static Node getHandler(LexicalUnit first, Environment env) {
+	public static Node getHandler(LexicalUnit first, Environment env) throws Exception{
 
-		return new stmtListNode(first,env);
+		return new stmtListNode(first, env);
 	}
 
 	private stmtListNode(LexicalUnit first,Environment env) {
 		this.env=env;
+		type=NodeType.STMT_LIST;
 	}
-
-
-
 
 	@Override
 	public boolean parse() throws Exception{
@@ -46,20 +44,17 @@ public class stmtListNode extends Node {
 
 		while(true){
 			if(stmtNode.isFirst(first)) {
-				stmtListNode.unget(first);
 				stmt=stmtNode.getHandler(first,env);
 				stmts.add(stmt);
-				return stmt.parse();
-			}else {
-				return false;
+				stmt.parse();
+				continue;
 			}
+			env.getInput().unget(first);
+			return false;
 		}
 	}
-	private static void unget(LexicalUnit first) {
-		// TODO 自動生成されたメソッド・スタブ
 
-	}
-
+	@Override
 	public String toString()  {
 
 		return stmt.toString();

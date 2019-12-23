@@ -13,7 +13,7 @@ public class Main {
 	        Node			program;
 	  
 	        System.out.println("basic parser");
-	        lex = new LexicalAnalyzerImpl("end.bas");
+	        lex = new LexicalAnalyzerImpl("END.bas");
 	        env = new Environment(lex);
 	        first = lex.get();
 	        lex.unget(first);

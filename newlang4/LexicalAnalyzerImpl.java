@@ -189,7 +189,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 				new ValueImpl(Integer.parseInt(target),ValueType.INTEGER));
 	}
 
-		private LexicalUnit getLiteral() throws Exception { //
+		private LexicalUnit getLiteral() throws Exception {
 			String target="";
 			String str;
 
@@ -244,7 +244,6 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 	@Override
 	public void unget(LexicalUnit token) throws Exception {
-
 		luDeque.push(token);
 		
 	}

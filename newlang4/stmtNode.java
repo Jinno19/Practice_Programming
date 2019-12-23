@@ -26,5 +26,29 @@ public class stmtNode extends Node {
 
 	private stmtNode(LexicalUnit first,Environment env) {
 		this.env=env;
+		type=NodeType.STMT;
+	}
+
+
+	@Override
+	public boolean parse() throws Exception{
+
+		LexicalUnit first=env.getInput().get();
+
+		while(true){
+			if(stmtNode.isFirst(first)) {
+				env.getInput().unget(first);
+				End=EndNode.getHandler(first,env);
+				End.parse();
+				continue;
+			}
+			return false;
+		}
+	}
+
+	@Override
+	public String toString()  {
+
+		return End.toString();
 	}
 }
