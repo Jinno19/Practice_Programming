@@ -52,7 +52,7 @@ public class stmtListNode extends Node {
 			env.getInput().unget(first);
 			return false;
 			}
-			return true;
+			first=env.getInput().get();
 		}
 	}
 

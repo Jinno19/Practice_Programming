@@ -16,12 +16,12 @@ import java.util.regex.Pattern;
 public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 	PushbackReader reader;
+	Deque<LexicalUnit> luDeque=new ArrayDeque<>();
 
 	    Map<String, LexicalUnit> resword = new HashMap<String, LexicalUnit>();
 	    Map<String, LexicalUnit> ope =new HashMap<String,LexicalUnit>();
 	    Map<String, LexicalUnit> newline =new HashMap<String,LexicalUnit>();
 	    
-		Deque<LexicalUnit> luDeque=new ArrayDeque<>();
 	    {
 	    	  {
 	        resword.put("IF", new LexicalUnit(LexicalType.IF));
