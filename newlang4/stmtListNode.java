@@ -41,7 +41,7 @@ public class stmtListNode extends Node {
 	public boolean parse() throws Exception{
 
 		LexicalUnit first=env.getInput().get();
-		
+
 
 
 		while(true){
@@ -49,18 +49,19 @@ public class stmtListNode extends Node {
 				first=env.getInput().get();
 				continue;
 			}
-			
+
 			if(stmtNode.isFirst(first)) {
 				env.getInput().unget(first);
 				stmt=stmtNode.getHandler(first,env);
 				stmts.add(stmt);
 				stmt.parse();
-				}else {
-			env.getInput().unget(first);
-			return false;
+			}else {
+				env.getInput().unget(first);
+				return false;
 			}
 			first=env.getInput().get();
 		}
+		return true;
 	}
 
 	@Override
