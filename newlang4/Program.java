@@ -20,12 +20,12 @@ public class Program extends Node{
 		return firstSet.contains(lu.getType());
 	}
 
-	public static Node getHandler(LexicalUnit lu, Environment env) throws Exception{
+	public static Node getHandler(LexicalUnit first, Environment env) throws Exception{
 
-		return new Program(lu,env);
+		return new Program(env);
 	}
 
-	private Program(LexicalUnit first,Environment env) {
+	private Program(Environment env) {
 		this.env=env;
 	}
 
@@ -37,6 +37,7 @@ public class Program extends Node{
 
 		if(stmtListNode.isFirst(first)) {
 			stmt_list=stmtListNode.getHandler(first,env);
+			env.getInput().unget(first);
 			return stmt_list.parse();
 		}else {
 			return false;

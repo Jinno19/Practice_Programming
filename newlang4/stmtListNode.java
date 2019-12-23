@@ -22,9 +22,9 @@ public class stmtListNode extends Node {
 	private List<Node> stmts=new ArrayList<Node>();
 
 
-	public static boolean isFirst(LexicalUnit first) {
+	public static boolean isFirst(LexicalUnit lu) {
 
-		return firstSet.contains(first.getType());
+		return firstSet.contains(lu.getType());
 	}
 
 	public static Node getHandler(LexicalUnit first, Environment env) throws Exception{
