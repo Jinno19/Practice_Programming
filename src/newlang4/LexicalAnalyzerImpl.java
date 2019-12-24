@@ -21,7 +21,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	    Map<String, LexicalUnit> resword = new HashMap<String, LexicalUnit>();
 	    Map<String, LexicalUnit> ope =new HashMap<String,LexicalUnit>();
 	    Map<String, LexicalUnit> newline =new HashMap<String,LexicalUnit>();
-	    
+
 	    {
 	    	  {
 	        resword.put("IF", new LexicalUnit(LexicalType.IF));
@@ -74,36 +74,36 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 		int ci;
 
 		while(true) {
-			
+
 			if(luDeque.isEmpty()!=true) {
 			return luDeque.pop();
 			}
-			
+
 			ci=reader.read();
 
 			reader.unread(ci);
-			
+
 			String str2=String.valueOf((char) ci);
 			boolean b = Pattern.matches("\\ |\\t", str2);
 			if(b==true) {
 			reader.skip(1);
 			}
-			
+
 			char c=(char) ci;
 			if((c>='a' && c<='z')||(c>='A' && c<='Z')) {
 				return getString();
 			}
-			
+
 			char c1=(char) ci;
 			if(c1>='0' && c1<='9') {
 				return getNumber();
 			}
-			
+
 			char c2=(char) ci;
 			if(c2=='"') {
 				return getLiteral();
 			}
-			
+
 			char c3=(char)ci;
 			String str=String.valueOf(c3);
 			if(str.equals("+")||(str.equals("-"))||(str.equals("*"))||(str.equals("/"))
@@ -111,23 +111,22 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 					||(str.equals(">"))||(str.equals("("))||(str.equals(")"))) {
 			return getSpecial();
 			}
-			
+
 			char c4=(char) ci;
 			String str3=String.valueOf(c4);
 			if(newline.containsKey(str3)) {
 				return getNL();
 			}
-			
-			if(ci==-1) {
+
+			if(ci==-1 || ci==(char)-1) {
 				return new LexicalUnit(LexicalType.EOF);
 			}
 			continue;
 		}
 	}
-
 	private LexicalUnit getNL() throws Exception{
 		String str,str2;
-		
+
 			while(true) {
 			int ci=reader.read();
 			char c4=(char)ci;
@@ -146,10 +145,10 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			}
 			}
 
-			
+
 			return null;
 	}
-	
+
 
 
 	private LexicalUnit getString() throws Exception { //
@@ -198,7 +197,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 				char c2=(char)ci;
 					str=String.valueOf(c2);
 					target+=str;
-					
+
 			boolean b = Pattern.matches("^\".*\"$",target);
 			if(b==true) {
 			target=target.substring(1,target.length()-1);
@@ -227,7 +226,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			reader.unread(ci);
 			break;
 		}
-		
+
 			if(ope.containsKey(target)) {
 				str=String.valueOf(ope.get(target));
 				return new LexicalUnit(LexicalType.valueOf(str));
@@ -235,7 +234,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			return null;
 		}
 	}
-	
+
 
 	@Override
 	public boolean expect(LexicalType type) throws Exception {
@@ -245,7 +244,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	@Override
 	public void unget(LexicalUnit token) throws Exception {
 		luDeque.push(token);
-		
+
 	}
 }
 

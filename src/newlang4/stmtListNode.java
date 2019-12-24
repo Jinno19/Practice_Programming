@@ -42,8 +42,6 @@ public class stmtListNode extends Node {
 
 		LexicalUnit first=env.getInput().get();
 
-		System.out.println(first);
-
 		while(true){
 			if(first.getType()==LexicalType.NL) {
 				first=env.getInput().get();
@@ -59,6 +57,7 @@ public class stmtListNode extends Node {
 				env.getInput().unget(first);
 				return false;
 			}
+
 			first=env.getInput().get();
 		}
 	}

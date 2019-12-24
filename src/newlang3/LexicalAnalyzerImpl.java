@@ -109,7 +109,7 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 				return getNL();
 			}
 
-			if(ci==-1) {
+			if(ci==65535) {
 				return new LexicalUnit(LexicalType.EOF);
 			}
 			continue;

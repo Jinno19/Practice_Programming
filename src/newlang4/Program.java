@@ -33,6 +33,7 @@ public class Program extends Node{
 	@Override
 	public boolean parse() throws Exception{
 		LexicalUnit first=env.getInput().get();
+		
 
 
 		if(stmtListNode.isFirst(first)) {
