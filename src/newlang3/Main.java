@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 public class Main {
 
 		public static void main(String[] args) {
-		String fname="test.bas";
+		String fname="C:\\Users\\C0117157\\Documents\\src\\test.bas";
 		if(args.length>0)fname = args[0];
 		
 		LexicalAnalyzer la = null;
