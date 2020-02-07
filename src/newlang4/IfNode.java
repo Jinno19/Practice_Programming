@@ -83,6 +83,17 @@ public class IfNode extends Node {
 		}
 		if (LexicalType.ELSE == first.getType()) {
 			first = env.getInput().get();
+			while (true) {
+				if (first.getType() == LexicalType.NL) {
+					first = env.getInput().get();
+					continue;
+				} else {
+					env.getInput().unget(first);
+					break;
+				}
+			}
+			first = env.getInput().get();
+			env.getInput().unget(first);
 			fAction = stmtListNode.getHandler(first, env);
 			fAction.parse();
 			first = env.getInput().get();
