@@ -1,9 +1,7 @@
 package newlang4;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
-
-import newlang5.PrintFunction;
 
 public class Environment {
 	   LexicalAnalyzer input;
@@ -12,9 +10,9 @@ public class Environment {
 
 	    public Environment(LexicalAnalyzer my_input) {
 	        input = my_input;
-	        library = new Hashtable();
+	        library = new HashMap<String, Function>();
 	        library.put("PRINT", new PrintFunction() );//printfunctionは自分で作る
-	        var_table = new Hashtable<String, Variable>();
+	        var_table = new HashMap<String, VariableNode>();
 	    }
 
 	    public LexicalAnalyzer getInput() {

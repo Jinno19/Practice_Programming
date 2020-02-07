@@ -3,9 +3,9 @@ package newlang4;
 import java.util.EnumSet;
 import java.util.Set;
 
-public class LoopNode extends Node{
+public class LoopNode extends Node {
 	Node handler;
-	Node catchStmtList; //stmtListの値保持
+	Node catchStmtList; // stmtListの値保持
 	Environment env;
 
 	static final Set<LexicalType> firstSet = EnumSet.of(LexicalType.DO, LexicalType.WHILE);
@@ -29,23 +29,22 @@ public class LoopNode extends Node{
 	@Override
 	public boolean parse() throws Exception {
 
-
-		LexicalUnit first=env.getInput().get();
-		if(first.getType()!=LexicalType.DO) {
+		LexicalUnit first = env.getInput().get();
+		if (first.getType() != LexicalType.DO) {
 			throw new Exception("Not found DO.");
 		}
 
-		first=env.getInput().get();
-		if(first.getType()!=LexicalType.UNTIL) {
+		first = env.getInput().get();
+		if (first.getType() != LexicalType.UNTIL) {
 			throw new Exception("Not found UNTIL.");
 		}
 
-		LexicalUnit second=env.getInput().get();
+		LexicalUnit second = env.getInput().get();
 		env.getInput().unget(second);
-		if(!CondNode.isFirst(second)) {
+		if (!CondNode.isFirst(second)) {
 			throw new Exception("Undefined Cond.");
 		}
-		handler=CondNode.getHandler(second, env);
+		handler = CondNode.getHandler(second, env);
 		handler.parse();
 
 		first = env.getInput().get();
@@ -67,8 +66,8 @@ public class LoopNode extends Node{
 		catchStmtList = stmtListNode.getHandler(first, env);
 		catchStmtList.parse();
 
-		first=env.getInput().get();
-		if(first.getType()!=LexicalType.LOOP) {
+		first = env.getInput().get();
+		if (first.getType() != LexicalType.LOOP) {
 			throw new Exception("Not found LOOP.");
 		}
 
@@ -90,10 +89,7 @@ public class LoopNode extends Node{
 	public String toString() {
 		// TODO 自動生成されたメソッド・スタブ
 
-		return "DO UNTIL"+handler.toString()+catchStmtList.toString()+"LOOP";
+		return "DO UNTIL" + handler.toString() + catchStmtList.toString() + "LOOP";
 	}
-
-
-
 
 }

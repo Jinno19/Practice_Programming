@@ -127,7 +127,7 @@ public class IfNode extends Node {
 			return "IF " + handler.toString() + "THEN " + tAction.toString();
 
 		} else {
-			return "IF"+handler.toString()+"THEN "+tAction.toString()+"ELSEIF " + handler.toString() + fAction.toString();
+			return "IF"+handler.toString()+"THEN "+tAction.toString()+"ELSEIF " + fAction.toString();
 		}
 	}
 

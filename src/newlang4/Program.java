@@ -33,18 +33,17 @@ public class Program extends Node{
 	@Override
 	public boolean parse() throws Exception{
 		LexicalUnit first=env.getInput().get();
-		
+		env.getInput().unget(first);
 
 
 		if(stmtListNode.isFirst(first)) {
 			handler=stmtListNode.getHandler(first,env);
-			env.getInput().unget(first);
 			return handler.parse();
 		}else {
 			return false;
 		}
 	}
-	
+
 	public String toString() {
 		return handler.toString();
 	}

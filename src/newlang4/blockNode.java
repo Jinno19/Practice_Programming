@@ -27,18 +27,20 @@ public class blockNode extends Node {
 	@Override
 	public boolean parse() throws Exception {
 
-		LexicalUnit first=env.getInput().get();
+		LexicalUnit first = env.getInput().get();
 		env.getInput().unget(first);
 
-		if(IfNode.isFirst(first)) {
-			handler=IfNode.getHandler(first, env);
+		if (IfNode.isFirst(first)) {
+			handler = IfNode.getHandler(first, env);
 			return handler.parse();
-		}if(LoopNode.isFirst(first)){
-			handler=LoopNode.getHandler(first, env);
+		}
+		if (LoopNode.isFirst(first)) {
+			handler = LoopNode.getHandler(first, env);
 			return handler.parse();
 		}
 
 		return false;
+
 	}
 
 	public String toString() {
