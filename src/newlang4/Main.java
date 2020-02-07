@@ -11,13 +11,13 @@ public class Main {
 	        LexicalUnit		first;
 	        Environment		env;
 	        Node			handler;
-	  
+
 	        System.out.println("basic parser");
 	        lex = new LexicalAnalyzerImpl("src\\test2.bas");
 	        env = new Environment(lex);
 	        first = lex.get();
 	        lex.unget(first);
-	        
+
 	        if (Program.isFirst(first)) {
 
 	        	handler = Program.getHandler(first, env);

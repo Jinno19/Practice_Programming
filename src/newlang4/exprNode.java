@@ -88,6 +88,15 @@ public class exprNode extends Node {
 	}
 
 	public String toString() {
-		return handler.toString();
+
+		if(operator!=null) {
+
+		return L.toString();//+operator.toString()+R.toString();
+		}else if(operator == LexicalType.ADD){
+			return "[" +L.toString() + "] + ["+R.toString() +"}";
+		}else if(operator ==LexicalType.SUB) {
+			return "[" +L.toString() + "] - ["+R.toString() +"}";
+		}
+		return null;
 	}
 }

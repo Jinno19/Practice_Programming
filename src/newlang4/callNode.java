@@ -27,7 +27,8 @@ public class callNode extends Node {
 	public boolean parse() throws Exception {
 
 		LexicalUnit first = env.getInput().get();
-		funcname = env.getFunction(first.toString());
+		System.out.println(first.toString());
+		funcname = env.getFunction(first.getValue().getSValue());
 		first = env.getInput().get();
 
 		// 「()」の存在を判断する
@@ -56,6 +57,9 @@ public class callNode extends Node {
 	@Override
 	public String toString() {
 
+
+		System.out.println(funcname);
+		System.out.println(handler);
 		return funcname.toString()+" ("+handler.toString()+")";
 	}
 

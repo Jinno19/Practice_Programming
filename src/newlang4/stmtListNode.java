@@ -39,13 +39,14 @@ public class stmtListNode extends Node {
 			if (stmtNode.isFirst(first)) {
 				env.getInput().unget(first);
 				handler = stmtNode.getHandler(first, env);
-				stmts.add(handler);
 				handler.parse();
+				stmts.add(handler);
 				first = env.getInput().get();
 			} else if (blockNode.isFirst(first)) {
 				env.getInput().unget(first);
 				handler = blockNode.getHandler(first, env);
 				handler.parse();
+				stmts.add(handler);
 				first = env.getInput().get();
 			}else if (first.getType() == LexicalType.NL) {
 				first = env.getInput().get();
