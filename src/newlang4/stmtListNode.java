@@ -34,26 +34,30 @@ public class stmtListNode extends Node {
 
 		LexicalUnit first = env.getInput().get();
 		env.getInput().unget(first);
-		while (true) { //NLが来る限り飛ばし続ける
+		while (true) { // NLが来る限り飛ばし続ける
 			if (first.getType() == LexicalType.NL) {
 				first = env.getInput().get();
 				continue;
-			}
-
-			if (stmtNode.isFirst(first)) {
-				handler = stmtNode.getHandler(first, env);
-				stmts.add(handler);
-				return handler.parse();
-			}
-			if(blockNode.isFirst(first)) {
-				
-			
 			} else {
 				env.getInput().unget(first);
-				return false;
+				break;
 			}
-
 		}
+
+		if (stmtNode.isFirst(first)) {
+			handler = stmtNode.getHandler(first, env);
+			stmts.add(handler);
+			return handler.parse();
+		}
+		if (blockNode.isFirst(first)) {
+			handler = blockNode.getHandler(first, env);
+			return handler.parse();
+
+		} else {
+			env.getInput().unget(first);
+			return false;
+		}
+
 	}
 
 	@Override

@@ -184,7 +184,6 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			}
 		return new LexicalUnit(LexicalType.INTVAL,
 				new ValueImpl(target,ValueType.INTEGER));
-		//Integer.parseInt(target)
 	}
 
 		private LexicalUnit getLiteral() throws Exception {

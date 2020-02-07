@@ -40,7 +40,6 @@ public class constNode extends Node {
 	public boolean parse() throws Exception {
 
 		LexicalUnit first = env.getInput().get();
-		System.out.println(first);
 		if (constNode.isFirst(first)) {
 			v = first.getValue();
 		} else {
