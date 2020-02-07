@@ -53,12 +53,7 @@ public class stmtListNode extends Node {
 				handler = blockNode.getHandler(first, env);
 				handler.parse();
 				first = env.getInput().get();
-
-			} else {
-				env.getInput().unget(first);
-				break;
-			}
-			if (first.getType() == LexicalType.NL) {
+			}else if (first.getType() == LexicalType.NL) {
 				first = env.getInput().get();
 			} else {
 				env.getInput().unget(first);
