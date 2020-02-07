@@ -2,9 +2,9 @@ package newlang4;
 
 public class ValueImpl implements Value{
 
-String Sg;
-ValueType Vt;
-int it;
+	String Sg;
+	ValueType Vt;
+	int it;
 
 	public ValueImpl(String s, ValueType t) {
 		super();
@@ -19,8 +19,8 @@ int it;
 		Vt=t;
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
-	
-	
+
+
 
 	@Override
 	public String get_sValue() {

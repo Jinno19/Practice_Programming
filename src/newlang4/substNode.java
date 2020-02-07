@@ -37,14 +37,14 @@ public class substNode extends Node {
 		if (!VariableNode.isMatch(first.getType())) {
 			throw new Exception("Undefined Variable.");
 		}
-		leftvar = ((VariableNode) VariableNode.getHandler(env.getInput().get().getType(), env));
+		leftvar = ((VariableNode) env.getVariable(first.getValue().getSValue()));
 		first = env.getInput().get();
 
 		if (first.getType() == LexicalType.EQ) {
 			first = env.getInput().get();
 		}
 
-		if (exprNode.isFirst(first)) {
+		if (exprNode.isFirst(first)) {	
 			env.getInput().unget(first);
 			handler = exprNode.getHandler(first, env);
 			handler.parse();

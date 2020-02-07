@@ -183,7 +183,8 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 				break;
 			}
 		return new LexicalUnit(LexicalType.INTVAL,
-				new ValueImpl(Integer.parseInt(target),ValueType.INTEGER));
+				new ValueImpl(target,ValueType.INTEGER));
+		//Integer.parseInt(target)
 	}
 
 		private LexicalUnit getLiteral() throws Exception {
