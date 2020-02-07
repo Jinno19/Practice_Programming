@@ -4,10 +4,12 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class IfNode extends Node {
-	Node handler,tAction,fAction;
+	Node handler;
+	Node tAction;// true時の動作
+	Node fAction;// false時の動作
 	Environment env;
 
-	static final Set<LexicalType> firstSet = EnumSet.of(LexicalType.IF);
+	static final Set<LexicalType> firstSet = EnumSet.of(LexicalType.IF, LexicalType.ELSEIF);
 
 	public static boolean isFirst(LexicalUnit first) {
 
@@ -30,13 +32,13 @@ public class IfNode extends Node {
 		LexicalUnit first=env.getInput().get();
 
 		if(!IfNode.isFirst(first)) {
-			throw new Exception("Undifined If.");
+			throw new Exception("Undefined If.");
 		}
 
 		LexicalUnit second=env.getInput().get();
 		env.getInput().unget(second);
 		if(!CondNode.isFirst(second)) {
-			throw new Exception("Undifined Cond.");
+			throw new Exception("Undefined Cond.");
 		}
 		handler=CondNode.getHandler(second, env);
 		handler.parse();
@@ -92,11 +94,16 @@ public class IfNode extends Node {
 						break;
 					}
 				}
-
 			}
+		}
+
+		if(LexicalType.ELSEIF==first.getType()) {
+			env.getInput().unget(first);
+			handler=IfNode.getHandler(first, env);
+			handler.parse();
+			return true;
 		}
 		return true;
 	}
-
 
 }
