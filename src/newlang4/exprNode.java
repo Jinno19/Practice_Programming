@@ -69,8 +69,8 @@ public class exprNode extends Node {
 			handler = constNode.getHandler(first, env);
 			handler.parse();
 		} else {
-			//env.getInput().unget(first); //変数読むノードはsubstNodeとexprNodeだけ
-			handler = env.getVariable(first.getValue().getSValue()); //変数はどれを使うときも同じだからenvで変数を管理している。よって変数を使うときはこの処理
+			// env.getInput().unget(first); //変数読むノードはsubstNodeとexprNodeだけ
+			handler = env.getVariable(first.getValue().getSValue()); // 変数はどれを使うときも同じだからenvで変数を管理している。よって変数を使うときはこの処理
 			handler.parse();
 		}
 		return handler;
@@ -89,14 +89,16 @@ public class exprNode extends Node {
 
 	public String toString() {
 
-		if(operator!=null) {
-
-		return L.toString();//+operator.toString()+R.toString();
-		}else if(operator == LexicalType.ADD){
-			return "[" +L.toString() + "] + ["+R.toString() +"}";
-		}else if(operator ==LexicalType.SUB) {
-			return "[" +L.toString() + "] - ["+R.toString() +"}";
+		if (operator == LexicalType.ADD) {
+			return "[" + L.toString() + "] + [" + R.toString() + "}";
+		} else if (operator == LexicalType.SUB) {
+			return "[" + L.toString() + "] - [" + R.toString() + "}";
+		} else if (operator == LexicalType.MUL) {
+			return "[" + L.toString() + "] * [" + R.toString() + "}";
+		} else if (operator == LexicalType.DIV) {
+			return "[" + L.toString() + "] / [" + R.toString() + "}";
+		} else {
+			return L.toString();
 		}
-		return null;
 	}
 }
