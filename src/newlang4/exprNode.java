@@ -40,7 +40,6 @@ public class exprNode extends Node {
 	public boolean parse() throws Exception {
 		LexicalUnit first = env.getInput().get();
 		env.getInput().unget(first);
-		System.out.println(first); //デバッグ用
 		L = getOperand(first);
 
 		first = env.getInput().get();
@@ -78,8 +77,6 @@ public class exprNode extends Node {
 	}
 
 	public LexicalType getOperator(LexicalUnit ope) throws Exception {
-
-		System.out.println(ope); //デバッグ用
 
 		if (!isOperator(ope)) {
 			return null;

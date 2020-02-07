@@ -37,6 +37,7 @@ public class exprListNode extends Node {
 	public boolean parse() throws Exception{
 
 		LexicalUnit first=env.getInput().get();
+		env.getInput().unget(first);
 
 		while(true) {
 			handler=exprNode.getHandler(first, env);

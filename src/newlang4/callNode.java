@@ -39,6 +39,7 @@ public class callNode extends Node {
 		}
 
 		first=env.getInput().get();
+		env.getInput().unget(first);
 		handler = exprListNode.getHandler(first, env);
 		handler.parse();
 
