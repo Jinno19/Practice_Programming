@@ -4,9 +4,9 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class IfNode extends Node {
-	Node handler;
-	Node tAction;// true時の動作
-	Node fAction;// false時の動作
+	Node handler; //条件を保存
+	Node tAction; //true時の動作
+	Node fAction; //false時の動作
 	Environment env;
 
 	static final Set<LexicalType> firstSet = EnumSet.of(LexicalType.IF, LexicalType.ELSEIF);
@@ -49,11 +49,12 @@ public class IfNode extends Node {
 		}
 
 		first=env.getInput().get();
-		while (true) {//NLが来る限り飛ばし続ける
+		while (true) { //NLが来る限り飛ばし続ける
 			if (first.getType() == LexicalType.NL) {
 				first = env.getInput().get();
 				continue;
 			}else {
+				env.getInput().unget(first);
 				break;
 			}
 		}
@@ -74,6 +75,7 @@ public class IfNode extends Node {
 					first = env.getInput().get();
 					continue;
 				}else {
+					env.getInput().unget(first);
 					break;
 				}
 			}
@@ -91,6 +93,7 @@ public class IfNode extends Node {
 						first = env.getInput().get();
 						continue;
 					}else {
+						env.getInput().unget(first);
 						break;
 					}
 				}
@@ -99,8 +102,8 @@ public class IfNode extends Node {
 
 		if(LexicalType.ELSEIF==first.getType()) {
 			env.getInput().unget(first);
-			handler=IfNode.getHandler(first, env);
-			handler.parse();
+			fAction=IfNode.getHandler(first, env);
+			fAction.parse();
 			return true;
 		}
 		return true;
