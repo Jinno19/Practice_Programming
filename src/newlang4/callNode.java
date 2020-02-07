@@ -6,7 +6,7 @@ import java.util.Set;
 public class callNode extends Node {
 	Node handler;
 	Environment env;
-	String funcname;// 関数名を保持
+	Function funcname;// 関数名を保持
 
 	static final Set<LexicalType> firstSet = EnumSet.of(LexicalType.NAME);
 
@@ -27,7 +27,7 @@ public class callNode extends Node {
 	public boolean parse() throws Exception {
 
 		LexicalUnit first = env.getInput().get();
-		funcname = env.getInput().get().getValue().getSValue();
+		funcname = env.getFunction(first.toString());
 		first = env.getInput().get();
 
 		// 「()」の存在を判断する
@@ -54,7 +54,7 @@ public class callNode extends Node {
 	@Override
 	public String toString() {
 
-		return funcname+" ("+handler.toString()+")";
+		return funcname.toString()+" ("+handler.toString()+")";
 	}
 
 }
