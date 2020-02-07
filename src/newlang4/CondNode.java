@@ -41,7 +41,8 @@ public class CondNode extends Node {
 
 		first = env.getInput().get();
 		if (!operators.contains(first.getType())) {
-			throw new Exception("Undifined Operator.");
+			System.out.println(first);
+			throw new Exception("Undefined Operator.");
 		}
 		op = first.getType();
 

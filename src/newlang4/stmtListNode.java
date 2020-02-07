@@ -33,23 +33,17 @@ public class stmtListNode extends Node {
 	public boolean parse() throws Exception {
 
 		LexicalUnit first = env.getInput().get();
-		while (true) { // NLが来る限り飛ばし続ける
-			if (first.getType() == LexicalType.NL) {
-				first = env.getInput().get();
-				// continue;
-			} else {
-				env.getInput().unget(first);
-				break;
-			}
-		}
+
 
 		while (true) {
 			if (stmtNode.isFirst(first)) {
+				env.getInput().unget(first);
 				handler = stmtNode.getHandler(first, env);
 				stmts.add(handler);
 				handler.parse();
 				first = env.getInput().get();
 			} else if (blockNode.isFirst(first)) {
+				env.getInput().unget(first);
 				handler = blockNode.getHandler(first, env);
 				handler.parse();
 				first = env.getInput().get();
