@@ -1,10 +1,10 @@
-package newlang4;
+ package newlang4;
 
 import java.util.EnumSet;
 import java.util.Set;
 
 public class EndNode extends Node {
-	Node End;
+	Node handler;
 	Environment env;
 
 	static final Set<LexicalType> firstSet=EnumSet.of(

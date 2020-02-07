@@ -23,7 +23,6 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	    Map<String, LexicalUnit> newline =new HashMap<String,LexicalUnit>();
 
 	    {
-	    	  {
 	        resword.put("IF", new LexicalUnit(LexicalType.IF));
 	        resword.put("THEN", new LexicalUnit(LexicalType.THEN));
 	        resword.put("ELSE", new LexicalUnit(LexicalType.ELSE));
@@ -59,7 +58,6 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 	        resword.put("TO",new LexicalUnit(LexicalType.TO));
 	        resword.put("WEND",new LexicalUnit(LexicalType.WEND));
 
-	    	  }
 	      }
 
 	public LexicalAnalyzerImpl(String fname) throws FileNotFoundException { //動作が何も書いてない！

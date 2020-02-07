@@ -12,7 +12,7 @@ public class Environment {
 	        input = my_input;
 	        library = new Hashtable();
 	        library.put("PRINT", new PrintFunction() );//printfunctionは自分で作る
-	        var_table = new Hashtable();
+	        var_table = new Hashtable<String, Variable>();
 	    }
 	    
 	    public LexicalAnalyzer getInput() {

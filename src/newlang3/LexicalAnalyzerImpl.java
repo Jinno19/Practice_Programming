@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-
 public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 
 	PushbackReader reader;
@@ -29,9 +28,12 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			resword.put("DIM",new LexicalUnit(LexicalType.DIM));
 			resword.put("AS",new LexicalUnit(LexicalType.AS));
 			resword.put("END",new LexicalUnit(LexicalType.END));
-			newline.put("\n",new LexicalUnit(LexicalType.NL));
-			newline.put("\r",new LexicalUnit(LexicalType.NL));
-			newline.put("\r\n",new LexicalUnit(LexicalType.NL));
+			resword.put("WHILE",new LexicalUnit(LexicalType.WHILE));
+			resword.put("DO",new LexicalUnit(LexicalType.DO));
+			resword.put("UNTIL",new LexicalUnit(LexicalType.UNTIL));
+			resword.put("LOOP",new LexicalUnit(LexicalType.LOOP));
+			resword.put("TO",new LexicalUnit(LexicalType.TO));
+			resword.put("WEND",new LexicalUnit(LexicalType.WEND));
 			ope.put("=",new LexicalUnit(LexicalType.EQ));
 			ope.put("<",new LexicalUnit(LexicalType.LT));
 			ope.put(">",new LexicalUnit(LexicalType.GT));
@@ -48,13 +50,9 @@ public class LexicalAnalyzerImpl implements LexicalAnalyzer{
 			ope.put("*",new LexicalUnit(LexicalType.MUL));
 			ope.put("/",new LexicalUnit(LexicalType.DIV));
 			ope.put(",",new LexicalUnit(LexicalType.COMMA));
-			resword.put("WHILE",new LexicalUnit(LexicalType.WHILE));
-			resword.put("DO",new LexicalUnit(LexicalType.DO));
-			resword.put("UNTIL",new LexicalUnit(LexicalType.UNTIL));
-			resword.put("LOOP",new LexicalUnit(LexicalType.LOOP));
-			resword.put("TO",new LexicalUnit(LexicalType.TO));
-			resword.put("WEND",new LexicalUnit(LexicalType.WEND));
-
+			newline.put("\n",new LexicalUnit(LexicalType.NL));
+			newline.put("\r",new LexicalUnit(LexicalType.NL));
+			newline.put("\r\n",new LexicalUnit(LexicalType.NL));
 		}
 	}
 

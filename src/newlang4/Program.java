@@ -4,7 +4,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class Program extends Node{
-	Node stmt_list;
+	Node handler;
 	Environment env;
 
 	static final Set<LexicalType> firstSet=EnumSet.of(
@@ -37,16 +37,16 @@ public class Program extends Node{
 
 
 		if(stmtListNode.isFirst(first)) {
-			stmt_list=stmtListNode.getHandler(first,env);
+			handler=stmtListNode.getHandler(first,env);
 			env.getInput().unget(first);
-			return stmt_list.parse();
+			return handler.parse();
 		}else {
 			return false;
 		}
 	}
 	
 	public String toString() {
-		return stmt_list.toString();
+		return handler.toString();
 	}
 }
 	//LexicalAnalyzerImplを拡張し、ungetを用意しなければならない
