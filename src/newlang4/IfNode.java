@@ -4,9 +4,9 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class IfNode extends Node {
-	Node handler; //条件を保存
-	Node tAction; //true時の動作
-	Node fAction; //false時の動作
+	Node handler; // 条件を保存
+	Node tAction; // true時の動作
+	Node fAction; // false時の動作
 	Environment env;
 
 	static final Set<LexicalType> firstSet = EnumSet.of(LexicalType.IF, LexicalType.ELSEIF);
@@ -29,70 +29,70 @@ public class IfNode extends Node {
 	@Override
 	public boolean parse() throws Exception {
 
-		LexicalUnit first=env.getInput().get();
+		LexicalUnit first = env.getInput().get();
 
-		if(!IfNode.isFirst(first)) {
+		if (!IfNode.isFirst(first)) {
 			throw new Exception("Undefined If.");
 		}
 
-		LexicalUnit second=env.getInput().get();
+		LexicalUnit second = env.getInput().get();
 		env.getInput().unget(second);
-		if(!CondNode.isFirst(second)) {
+		if (!CondNode.isFirst(second)) {
 			throw new Exception("Undefined Cond.");
 		}
-		handler=CondNode.getHandler(second, env);
+		handler = CondNode.getHandler(second, env);
 		handler.parse();
 
-		first=env.getInput().get();
-		if(first.getType()!=LexicalType.THEN) {
+		first = env.getInput().get();
+		if (first.getType() != LexicalType.THEN) {
 			throw new Exception("Not found THEN.");
 		}
 
-		first=env.getInput().get();
-		while (true) { //NLが来る限り飛ばし続ける
+		first = env.getInput().get();
+		while (true) { // NLが来る限り飛ばし続ける
 			if (first.getType() == LexicalType.NL) {
 				first = env.getInput().get();
 				continue;
-			}else {
+			} else {
 				env.getInput().unget(first);
 				break;
 			}
 		}
 
-		first=env.getInput().get();
+		first = env.getInput().get();
 		env.getInput().unget(first);
-		if(!stmtListNode.isFirst(first)) {
+		if (!stmtListNode.isFirst(first)) {
 			throw new Exception("Not stmtList.");
 		}
-		tAction=stmtListNode.getHandler(first, env);
+		tAction = stmtListNode.getHandler(first, env);
 		tAction.parse();
 
-		first=env.getInput().get();
-		if(LexicalType.ENDIF==first.getType()) {
-			first=env.getInput().get();
+		first = env.getInput().get();
+		if (LexicalType.ENDIF == first.getType()) {
+			first = env.getInput().get();
 			while (true) {
 				if (first.getType() == LexicalType.NL) {
 					first = env.getInput().get();
 					continue;
-				}else {
+				} else {
 					env.getInput().unget(first);
 					break;
 				}
 			}
 			return true;
 		}
-		if(LexicalType.ELSE==first.getType()) {
-			first=env.getInput().get();
-			fAction=stmtListNode.getHandler(first, env);
+		if (LexicalType.ELSE == first.getType()) {
+			first = env.getInput().get();
+			fAction = stmtListNode.getHandler(first, env);
 			fAction.parse();
-			first=env.getInput().get();
-			if(LexicalType.ENDIF==first.getType()) {
-				first=env.getInput().get();
+			first = env.getInput().get();
+			if (LexicalType.ENDIF == first.getType()) {
+				first = env.getInput().get();
 				while (true) {
 					if (first.getType() == LexicalType.NL) {
 						first = env.getInput().get();
 						continue;
-					}else {
+					} else {
 						env.getInput().unget(first);
 						break;
 					}
@@ -100,13 +100,24 @@ public class IfNode extends Node {
 			}
 		}
 
-		if(LexicalType.ELSEIF==first.getType()) {
+		if (LexicalType.ELSEIF == first.getType()) {
 			env.getInput().unget(first);
-			fAction=IfNode.getHandler(first, env);
+			fAction = IfNode.getHandler(first, env);
 			fAction.parse();
 			return true;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+
+		if (fAction == null) {
+			return "IF " + handler.toString() + "THEN " + tAction.toString();
+
+		} else {
+			return "ELSEIF" + handler.toString() + fAction.toString();
+		}
 	}
 
 }
