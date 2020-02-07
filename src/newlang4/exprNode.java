@@ -69,7 +69,7 @@ public class exprNode extends Node {
 			handler = constNode.getHandler(first, env);
 			handler.parse();
 		} else {
-			env.getInput().unget(first);
+			//env.getInput().unget(first); //変数読むノードはsubstNodeとexprNodeだけ
 			handler = env.getVariable(first.getValue().getSValue()); //変数はどれを使うときも同じだからenvで変数を管理している。よって変数を使うときはこの処理
 			handler.parse();
 		}
